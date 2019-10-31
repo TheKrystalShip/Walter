@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "es2015",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist",
+        "resolveJsonModule": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "esModuleInterop": true,
+        "baseUrl": ".",
+        "paths": {
+            "*": ["types/*"],
+            "@/*": ["src/*"]
+        },
+        "types": ["webpack-env"]
+    },
+    "exclude": ["node_modules"]
+}
