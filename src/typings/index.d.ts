@@ -3,7 +3,7 @@ import { Client, Message, PartialMessage } from "discord.js";
 declare module "discord.js" {
     interface Client
     {
-        modules: Map<string, any>
+        modules: Array<ModuleDescriptor>;
     }
 }
 
@@ -36,4 +36,9 @@ export interface CommandRequest
     message: Message | PartialMessage;
     commandName: string;
     args?: Array<string>;
+}
+
+export interface ModuleDescriptor
+{
+    _moduleMetadata: ModuleMetadata;
 }

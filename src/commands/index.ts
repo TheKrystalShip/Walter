@@ -1,4 +1,4 @@
-import { CommandResult, CommandMetadata, CommandRequest } from "@/typings";
+import { CommandResult, CommandMetadata, CommandRequest, ModuleMetadata, ModuleDescriptor } from "@/typings";
 import { Client } from "discord.js";
 
 export class SuccessResult implements CommandResult
@@ -45,30 +45,35 @@ export default class CommandHandler
 
     public async handle(options: CommandRequest): Promise<CommandResult>
     {
-        // Check if command exists
-        if (!this._client.modules.has(options.commandName)) {
-            return;
+        let _module: ModuleDescriptor | undefined;
+        let command: CommandMetadata | undefined;
+
+        // Try and find the given command in one of the modules
+        for (let i = 0; i < this._client.modules.length; i++) {
+            const moduleDescriptor: ModuleDescriptor = this._client.modules[i];
+
+            // Use the built in function to try and find the command
+            // `getCommand` is added in the @Module decorator
+            command = moduleDescriptor["_moduleMetadata"]["getCommand"](options.commandName);
+
+            // If found, assign it and stop iterating
+            if (command) {
+                _module = moduleDescriptor;
+                break;
+            }
         }
 
-        const _module: any = this._client.modules.get(options.commandName);
-
-        // Find the CommandMetadata from the module
-        // module with have "_moduleMetadata" defined, it's added when registering all modules
-        // "commands" is an array of CommandMetadata types
-        const moduleCommand: CommandMetadata | undefined = _module["_moduleMetadata"]["commands"]
-            .find((command: CommandMetadata) => command.name === options.commandName);
-
-        // Module doesn't have the specified command
-        if (!moduleCommand) {
+        // Check if command was found
+        if (!command) {
             return;
         }
 
         // Try to execute the command
         try {
-            if (moduleCommand.isAsync) {
-                return await _module[moduleCommand.methodName](options.message);
+            if (command.isAsync) {
+                return await _module[command.methodName](options.message);
             } else {
-                return Promise.resolve(_module[moduleCommand.methodName](options.message));
+                return Promise.resolve(_module[command.methodName](options.message));
             }
         } catch (error) {
             console.error(error);

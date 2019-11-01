@@ -2,10 +2,10 @@ import { Client, Message, PartialMessage } from "discord.js";
 import { prefix, token } from "./config.json";
 import ModuleLoader from "@/internal/moduleLoader";
 import CommandHandler from "@/commands";
-import { CommandRequest, CommandResult } from "@/typings";
+import { CommandRequest, CommandResult, ModuleDescriptor } from "@/typings";
 
 const client: Client = new Client();
-client.modules = new Map<string, any>();
+client.modules = new Array<ModuleDescriptor>();
 
 const moduleLoader: ModuleLoader = new ModuleLoader();
 moduleLoader.loadModules(client);

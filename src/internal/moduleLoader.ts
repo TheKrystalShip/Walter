@@ -25,12 +25,12 @@ export default class ModuleLoader
 
                 // Fetch metadata form the module's prototype
                 // If it's undefined it means it's not a module, so we ignore it and continue
-                const moduleMetadata: ModuleMetadata | undefined = command.constructor.prototype._moduleMetadata;
+                const moduleMetadata: ModuleMetadata | undefined = command.constructor.prototype["_moduleMetadata"];
 
                 // Set a new item in the Collection
                 // with the key as the command name and the value as the exported module
                 if (moduleMetadata) {
-                    client.modules.set(moduleMetadata.name.toLowerCase(), command)
+                    client.modules.push(Object.assign(command, moduleMetadata));
                 }
 
             } catch (exception) {
