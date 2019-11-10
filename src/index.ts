@@ -15,24 +15,27 @@ commandHandler.setClient(client);
 
 client.on("ready", () =>
 {
-    console.log(`Logged in as ${ client.user.tag }!`);
+    console.log(`Logged in as ${ client.user?.tag }!`);
 });
 
 client.on("message", async (message: Message | PartialMessage) =>
 {
     // Check for message prefix
-    if (!message.content.startsWith(prefix) || message.author.bot) {
+    if (!message.content?.startsWith(prefix) || message.author?.bot) {
         return;
     }
 
     // Separate prefix from the message
     const args: Array<string> = message.content.slice(prefix.length).split(/ +/) || [];
-    let commandName: string = args.shift();
+    let commandName: string | undefined = args.shift();
+
+    // Can't find a command name in the message
+    if (!commandName) {
+        return;
+    }
 
     // Commands are not case sensitive, so we cast everything to lowercase
-    if (commandName) {
-        commandName = commandName.toLowerCase();
-    }
+    commandName = commandName.toLowerCase();
 
     const commandRequest: CommandRequest = {
         commandName,

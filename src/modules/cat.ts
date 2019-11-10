@@ -11,7 +11,7 @@ export default class Cat
     public async catAsync(message: Message | PartialMessage, args?: Array<string>): Promise<CommandResult>
     {
         const { file } = await fetch('https://aws.random.cat/meow').then((response: any) => response.json());
-        await message.channel.send(file);
+        await message.channel?.send(file);
 
         return new SuccessResult();
     }
@@ -20,6 +20,7 @@ export default class Cat
     public async testAsync(message: Message | PartialMessage, args?: Array<string>): Promise<CommandResult>
     {
         console.log(message);
+        // @ts-ignore
         await message.reply("test");
         return new SuccessResult();
     }

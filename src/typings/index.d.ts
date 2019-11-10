@@ -13,6 +13,9 @@ export interface ModuleMetadata
     isGrouped?: boolean;
     isModule?: boolean;
     commands?: Array<CommandMetadata>;
+
+    // TS: Allow for property/function calls using index access
+    [key: string]: any;
 }
 
 export interface CommandMetadata
@@ -41,4 +44,7 @@ export interface CommandRequest
 export interface ModuleDescriptor
 {
     _moduleMetadata: ModuleMetadata;
+
+    // TS: Allow for property/function calls using index access
+    [key: string]: any;
 }

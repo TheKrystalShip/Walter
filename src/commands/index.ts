@@ -10,7 +10,6 @@ export class SuccessResult implements CommandResult
     public constructor(message?: string)
     {
         this.isSuccess = true;
-        this.error = null;
         this.message = message;
     }
 }
@@ -64,8 +63,8 @@ export default class CommandHandler
         }
 
         // Check if command was found
-        if (!command) {
-            return;
+        if (!command || !command.methodName || !_module) {
+            return new ErrorResult("Failed to find command module");
         }
 
         // Try to execute the command

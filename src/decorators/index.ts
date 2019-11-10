@@ -5,6 +5,10 @@ export function Module(options?: ModuleMetadata): Function
 {
     return function (constructor: Function): void
     {
+        if (!options) {
+            options = {};
+        }
+
         // --- Add properties indicating the class is a module
         options.name = options.name || "default";
         options.isGrouped = options.isGrouped || false;
@@ -19,9 +23,9 @@ export function Module(options?: ModuleMetadata): Function
             name = name.toLowerCase();
 
             // Try and find either a command or an alias of a command with the given name
-            return options.commands.find(
+            return options?.commands?.find(
                 (command: CommandMetadata) => command.name.toLowerCase() === name ||
-                    command.aliases.find((alias: string) => alias.toLowerCase() === name)
+                    command.aliases?.find((alias: string) => alias.toLowerCase() === name)
             );
         }
 
@@ -47,6 +51,13 @@ export function Command(options?: CommandMetadata): Function
      */
     return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>): void
     {
+        if (!options) {
+            options = {
+                name: "",
+                methodName: propertyKey
+            };
+        }
+
         // Save method name to be used later as a k-v pair with the command name
         options.methodName = propertyKey;
         options.aliases = options.aliases || [];

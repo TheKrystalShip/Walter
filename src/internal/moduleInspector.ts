@@ -9,18 +9,18 @@ export default class ModuleInspector
         this._metadata = _module._moduleMetadata;
     }
 
-    public getGroup(): string | null
+    public getGroup(): string | undefined
     {
         if (this._metadata.isGrouped) {
             return this._metadata.name;
         }
 
-        return null;
+        return undefined;
     }
 
     public getCommands(): Array<CommandMetadata>
     {
-        return this._metadata.commands;
+        return this._metadata.commands || [];
     }
 
     public getCommand(name: string): CommandMetadata | undefined

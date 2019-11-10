@@ -8,6 +8,8 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "esModuleInterop": true,
+        "alwaysStrict": true,
+        "strictNullChecks": true,
         "baseUrl": ".",
         "paths": {
             "*": ["types/*"],
