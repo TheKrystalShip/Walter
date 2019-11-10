@@ -4,7 +4,7 @@
     "description": "A Discord.js music bot",
     "main": "index.js",
     "scripts": {
-        "clean": "rd /s /q dist",
+        "clean": "if exist dist rd /s /q dist",
         "build": "npm run clean && npm run build:js",
         "build:js": "babel src --out-dir dist --extensions \".ts\" --source-maps inline --copy-files"
     },
