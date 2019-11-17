@@ -4,6 +4,7 @@
     "description": "A Discord.js music bot",
     "main": "index.js",
     "scripts": {
+        "run": "node dist\\index.js --resolveJsonModule",
         "clean": "if exist dist rd /s /q dist",
         "build": "npm run clean && npm run build:js",
         "build:js": "babel src --out-dir dist --extensions \".ts\" --source-maps inline --copy-files"
@@ -24,8 +25,10 @@
     "dependencies": {
         "@babel/runtime": "^7.6.3",
         "discord.js": "github:discordjs/discord.js",
+        "ffmpeg-static": "^2.7.0",
         "file-system": "^2.2.2",
         "node-fetch": "^2.6.0",
+        "node-opus": "^0.3.3",
         "opusscript": "0.0.7"
     },
     "devDependencies": {

@@ -45,6 +45,10 @@ client.on("message", async (message: Message | PartialMessage) =>
 
     const result: CommandResult = await commandHandler.handle(commandRequest);
     console.log(result);
+
+    if (result.message) {
+        message.reply?.(result.message);
+    }
 });
 
 client.login(token);

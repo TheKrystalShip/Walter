@@ -38,7 +38,7 @@ export interface CommandRequest
 {
     message: Message | PartialMessage;
     commandName: string;
-    args?: Array<string>;
+    args: Array<string>;
 }
 
 export interface ModuleDescriptor

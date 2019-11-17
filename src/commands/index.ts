@@ -67,12 +67,19 @@ export default class CommandHandler
             return new ErrorResult("Failed to find command module");
         }
 
+        // Does the command require arguments?
+        let args: Array<string> = [];
+
+        if (command.hasArgs) {
+            args = options.args;
+        }
+
         // Try to execute the command
         try {
             if (command.isAsync) {
-                return await _module[command.methodName](options.message);
+                return await _module[command.methodName](options.message, args);
             } else {
-                return Promise.resolve(_module[command.methodName](options.message));
+                return Promise.resolve(_module[command.methodName](options.message, args));
             }
         } catch (error) {
             console.error(error);
