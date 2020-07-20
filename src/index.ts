@@ -51,4 +51,8 @@ client.on("message", async (message: Message | PartialMessage) =>
     }
 });
 
+if (token === "") {
+    console.error("Missing token");
+}
+
 client.login(token);
