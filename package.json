@@ -27,7 +27,7 @@
         "discord.js": "github:discordjs/discord.js",
         "ffmpeg-static": "^2.7.0",
         "file-system": "^2.2.2",
-        "node-fetch": "^2.6.1",
+        "node-fetch": "^2.6.7",
         "node-opus": "^0.3.3",
         "opusscript": "0.0.7"
     },
